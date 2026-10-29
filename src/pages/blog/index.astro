@@ -1,0 +1,16 @@
+---
+import Base from "../../layouts/Base.astro";
+import PostCard from "../../components/PostCard.astro";
+import { getPosts } from "../../lib/utils";
+
+const posts = await getPosts();
+---
+<Base title="Blog" description="Artículos sobre bases de datos relacionales, SQL e ingeniería de datos." active="blog">
+  <main class="container section">
+    <p class="eyebrow" style="margin-top:40px">-- SELECT * FROM articulos ORDER BY fecha DESC;</p>
+    <h1>Blog</h1>
+    <div class="post-list">
+      {posts.map((post) => <PostCard post={post} />)}
+    </div>
+  </main>
+</Base>

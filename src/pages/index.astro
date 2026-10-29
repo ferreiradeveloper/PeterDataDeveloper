@@ -1,0 +1,64 @@
+---
+import Base from "../layouts/Base.astro";
+import PostCard from "../components/PostCard.astro";
+import { url, getPosts } from "../lib/utils";
+
+const latest = (await getPosts()).slice(0, 4);
+---
+<Base active="inicio">
+  <main class="container">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">-- ingeniero de sistemas · ingeniero de datos</p>
+        <h1>Más de 30 años convirtiendo datos en decisiones.</h1>
+        <p class="lead">
+          Escribo sobre bases de datos relacionales, modelado, rendimiento de SQL,
+          pipelines de datos y lo que tres décadas en producción enseñan y ningún manual cuenta.
+        </p>
+        <a class="btn" href={url("blog/")}>Leer el blog</a>
+        <a class="btn ghost" href={url("sobre-mi/")}>Conóceme</a>
+      </div>
+
+      <div class="terminal" aria-hidden="true">
+        <div class="terminal-bar"><i></i><i></i><i></i></div>
+<pre><span class="cm">-- ¿Quién es PeterDataDeveloper?</span>
+<span class="kw">SELECT</span> nombre,
+       experiencia_anios,
+       especialidad
+<span class="kw">FROM</span>   ingenieros
+<span class="kw">WHERE</span>  pasion <span class="kw">IN</span> (<span class="str">'SQL'</span>, <span class="str">'modelado'</span>, <span class="str">'ETL'</span>)
+<span class="kw">ORDER BY</span> experiencia_anios <span class="kw">DESC</span>
+<span class="kw">LIMIT</span>  <span class="num">1</span>;
+
+<span class="cm"> nombre | experiencia_anios | especialidad</span>
+<span class="cm">--------+-------------------+------------------------</span>
+ Peter  |               <span class="num">30+</span> | BD relacionales · Datos
+<span class="cm">(1 row)</span></pre>
+      </div>
+    </section>
+
+    <div class="stats">
+      <div class="stat"><strong>30+</strong><span>años en sistemas</span></div>
+      <div class="stat"><strong>SQL</strong><span>mi lengua materna</span></div>
+      <div class="stat"><strong>ETL/ELT</strong><span>pipelines de datos</span></div>
+      <div class="stat"><strong>3FN</strong><span>y cuándo romperla</span></div>
+    </div>
+
+    <section class="section">
+      <h2>Últimos artículos</h2>
+      <div class="post-list">
+        {latest.map((post) => <PostCard post={post} />)}
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Sobre qué escribo</h2>
+      <div class="skills">
+        <div class="skill"><h3>Bases de datos relacionales</h3><p>Oracle, SQL Server, PostgreSQL, MySQL. Diseño, administración y tuning.</p></div>
+        <div class="skill"><h3>Modelado de datos</h3><p>Normalización, modelos dimensionales, Data Vault y cuándo usar cada uno.</p></div>
+        <div class="skill"><h3>Ingeniería de datos</h3><p>Pipelines ETL/ELT, orquestación, calidad de datos y data warehouses.</p></div>
+        <div class="skill"><h3>Rendimiento SQL</h3><p>Planes de ejecución, índices, particionamiento y consultas que escalan.</p></div>
+      </div>
+    </section>
+  </main>
+</Base>

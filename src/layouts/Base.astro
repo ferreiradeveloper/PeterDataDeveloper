@@ -1,0 +1,81 @@
+---
+import "../styles/styles.css";
+import { url } from "../lib/utils";
+
+interface Props {
+  title?: string;
+  description?: string;
+  active?: "inicio" | "blog" | "sobre-mi";
+}
+
+const {
+  title,
+  description = "Blog de Peter: ingeniero de sistemas con más de 30 años de experiencia en bases de datos relacionales e ingeniería de datos.",
+  active,
+} = Astro.props;
+const fullTitle = title ? `${title} · PeterDataDeveloper` : "PeterDataDeveloper";
+const current = (name: string) => (active === name ? "page" : undefined);
+---
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{fullTitle}</title>
+  <meta name="description" content={description}>
+  <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)}>
+  <link rel="alternate" type="application/rss+xml" title="PeterDataDeveloper" href={url("rss.xml")}>
+  <link rel="icon" href={url("favicon.svg")} type="image/svg+xml">
+  <meta property="og:title" content={fullTitle}>
+  <meta property="og:description" content={description}>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script is:inline>
+    try {
+      const t = localStorage.getItem("theme");
+      if (t) document.documentElement.setAttribute("data-theme", t);
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="container nav">
+      <a class="brand" href={url()}>Peter<span>Data</span>Developer</a>
+      <ul class="nav-links">
+        <li><a href={url()} aria-current={current("inicio")}>Inicio</a></li>
+        <li><a href={url("blog/")} aria-current={current("blog")}>Blog</a></li>
+        <li><a href={url("sobre-mi/")} aria-current={current("sobre-mi")}>Sobre mí</a></li>
+        <li><button class="theme-toggle" type="button">☾ oscuro</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <slot />
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>© {new Date().getFullYear()} PeterDataDeveloper</span>
+      <span><a href={url("rss.xml")}>RSS</a> · Hecho con Astro y muchos años de SQL.</span>
+    </div>
+  </footer>
+
+  <script>
+    // Tema claro/oscuro con preferencia recordada
+    const root = document.documentElement;
+    const btn = document.querySelector<HTMLButtonElement>(".theme-toggle");
+    if (btn) {
+      const isDark = () =>
+        root.getAttribute("data-theme") === "dark" ||
+        (!root.getAttribute("data-theme") && matchMedia("(prefers-color-scheme: dark)").matches);
+      const label = () => (btn.textContent = isDark() ? "☀ claro" : "☾ oscuro");
+      label();
+      btn.addEventListener("click", () => {
+        const next = isDark() ? "light" : "dark";
+        root.setAttribute("data-theme", next);
+        try { localStorage.setItem("theme", next); } catch (e) {}
+        label();
+      });
+    }
+  </script>
+</body>
+</html>
