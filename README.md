@@ -1,6 +1,6 @@
 # PeterDataDeveloper
 
-Blog personal de Peter — ingeniero de sistemas con más de 30 años de experiencia,
+Blog personal de Francisco Ferreira (PeterDataDeveloper) — ingeniero de sistemas con más de 30 años de experiencia,
 especialista en bases de datos relacionales e ingeniería de datos.
 
 Hecho con [Astro](https://astro.build): los artículos se escriben en Markdown y

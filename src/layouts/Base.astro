@@ -10,7 +10,7 @@ interface Props {
 
 const {
   title,
-  description = "Blog de Peter: ingeniero de sistemas con más de 30 años de experiencia en bases de datos relacionales e ingeniería de datos.",
+  description = "Blog de Francisco Ferreira (PeterDataDeveloper): ingeniero de sistemas con más de 30 años de experiencia en bases de datos relacionales e ingeniería de datos.",
   active,
 } = Astro.props;
 const fullTitle = title ? `${title} · PeterDataDeveloper` : "PeterDataDeveloper";
@@ -55,7 +55,11 @@ const current = (name: string) => (active === name ? "page" : undefined);
   <footer class="site-footer">
     <div class="container">
       <span>© {new Date().getFullYear()} PeterDataDeveloper</span>
-      <span><a href={url("rss.xml")}>RSS</a> · Hecho con Astro y muchos años de SQL.</span>
+      <span>
+        <a href="https://www.linkedin.com/in/francisco-ferreira-de-la-cruz-b2080533" rel="me noopener" target="_blank">LinkedIn</a>
+        · <a href="https://github.com/ferreiradeveloper" rel="me noopener" target="_blank">GitHub</a>
+        · <a href={url("rss.xml")}>RSS</a> · Hecho con Astro y muchos años de SQL.
+      </span>
     </div>
   </footer>
 
